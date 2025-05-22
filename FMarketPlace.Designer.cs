@@ -34,16 +34,27 @@
             panelInfo = new Panel();
             picItemImage = new PictureBox();
             btnCreate = new Button();
-            lbInfo = new Label();
-            panelItems = new Panel();
-            cbObjects = new ComboBox();
+            panelSeparator = new Panel();
+            menuStrip1 = new MenuStrip();
+            miFile = new ToolStripMenuItem();
+            miSaveJson = new ToolStripMenuItem();
+            miLoadJson = new ToolStripMenuItem();
+            miSaveXml = new ToolStripMenuItem();
+            miLoadXml = new ToolStripMenuItem();
+            miDLL = new ToolStripMenuItem();
+            miPlugin = new ToolStripMenuItem();
             btnUndo = new Button();
             btnRedo = new Button();
             btnEdit = new Button();
             btnDelete = new Button();
+            pItems = new Panel();
+            lbItems = new Label();
+            lbProducts = new ListBox();
             panelInfo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)picItemImage).BeginInit();
-            panelItems.SuspendLayout();
+            panelSeparator.SuspendLayout();
+            menuStrip1.SuspendLayout();
+            pItems.SuspendLayout();
             SuspendLayout();
             // 
             // LabelTitle
@@ -60,19 +71,19 @@
             // 
             // txtbItems
             // 
-            txtbItems.Location = new Point(91, 65);
+            txtbItems.Location = new Point(75, 65);
             txtbItems.Multiline = true;
             txtbItems.Name = "txtbItems";
             txtbItems.ReadOnly = true;
             txtbItems.ScrollBars = ScrollBars.Vertical;
-            txtbItems.Size = new Size(234, 133);
+            txtbItems.Size = new Size(234, 199);
             txtbItems.TabIndex = 4;
             // 
             // lbItemInfo
             // 
             lbItemInfo.AutoSize = true;
             lbItemInfo.Font = new Font("Times New Roman", 18F, FontStyle.Regular, GraphicsUnit.Point, 204);
-            lbItemInfo.Location = new Point(311, 21);
+            lbItemInfo.Location = new Point(159, 18);
             lbItemInfo.Name = "lbItemInfo";
             lbItemInfo.Size = new Size(264, 27);
             lbItemInfo.TabIndex = 5;
@@ -84,17 +95,18 @@
             panelInfo.Controls.Add(picItemImage);
             panelInfo.Controls.Add(lbItemInfo);
             panelInfo.Controls.Add(txtbItems);
-            panelInfo.Location = new Point(3, 123);
+            panelInfo.Location = new Point(359, 123);
             panelInfo.Name = "panelInfo";
-            panelInfo.Size = new Size(899, 210);
+            panelInfo.Size = new Size(527, 274);
             panelInfo.TabIndex = 6;
             // 
             // picItemImage
             // 
+            picItemImage.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             picItemImage.BorderStyle = BorderStyle.FixedSingle;
-            picItemImage.Location = new Point(704, 48);
+            picItemImage.Location = new Point(342, 65);
             picItemImage.Name = "picItemImage";
-            picItemImage.Size = new Size(150, 150);
+            picItemImage.Size = new Size(170, 199);
             picItemImage.SizeMode = PictureBoxSizeMode.Zoom;
             picItemImage.TabIndex = 6;
             picItemImage.TabStop = false;
@@ -110,36 +122,73 @@
             btnCreate.UseVisualStyleBackColor = true;
             btnCreate.Click += btnCreate_Click;
             // 
-            // lbInfo
+            // panelSeparator
             // 
-            lbInfo.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            lbInfo.AutoSize = true;
-            lbInfo.Font = new Font("Ebrima", 14.25F, FontStyle.Italic, GraphicsUnit.Point, 0);
-            lbInfo.Location = new Point(359, 10);
-            lbInfo.Name = "lbInfo";
-            lbInfo.Size = new Size(160, 25);
-            lbInfo.TabIndex = 3;
-            lbInfo.Text = "Выберите товар";
+            panelSeparator.BackColor = Color.MediumOrchid;
+            panelSeparator.Controls.Add(menuStrip1);
+            panelSeparator.Location = new Point(0, 38);
+            panelSeparator.Name = "panelSeparator";
+            panelSeparator.Size = new Size(898, 79);
+            panelSeparator.TabIndex = 3;
+            panelSeparator.Paint += panelItems_Paint;
             // 
-            // panelItems
+            // menuStrip1
             // 
-            panelItems.BackColor = Color.MediumOrchid;
-            panelItems.Controls.Add(cbObjects);
-            panelItems.Controls.Add(lbInfo);
-            panelItems.Location = new Point(0, 38);
-            panelItems.Name = "panelItems";
-            panelItems.Size = new Size(899, 79);
-            panelItems.TabIndex = 3;
-            panelItems.Paint += panelItems_Paint;
+            menuStrip1.Items.AddRange(new ToolStripItem[] { miFile, miDLL, miPlugin });
+            menuStrip1.Location = new Point(0, 0);
+            menuStrip1.Name = "menuStrip1";
+            menuStrip1.Size = new Size(898, 24);
+            menuStrip1.TabIndex = 5;
+            menuStrip1.Text = "menuStrip1";
             // 
-            // cbObjects
+            // miFile
             // 
-            cbObjects.FormattingEnabled = true;
-            cbObjects.Location = new Point(359, 38);
-            cbObjects.Name = "cbObjects";
-            cbObjects.Size = new Size(160, 23);
-            cbObjects.TabIndex = 4;
-            cbObjects.SelectedIndexChanged += cbObjects_SelectedIndexChanged;
+            miFile.DropDownItems.AddRange(new ToolStripItem[] { miSaveJson, miLoadJson, miSaveXml, miLoadXml });
+            miFile.Name = "miFile";
+            miFile.Size = new Size(48, 20);
+            miFile.Text = "Файл";
+            // 
+            // miSaveJson
+            // 
+            miSaveJson.Name = "miSaveJson";
+            miSaveJson.Size = new Size(163, 22);
+            miSaveJson.Text = "Сохранить JSON";
+            miSaveJson.Click += miSaveJson_Click;
+            // 
+            // miLoadJson
+            // 
+            miLoadJson.Name = "miLoadJson";
+            miLoadJson.Size = new Size(163, 22);
+            miLoadJson.Text = "Загрузить JSON";
+            miLoadJson.Click += miLoadJson_Click;
+            // 
+            // miSaveXml
+            // 
+            miSaveXml.Name = "miSaveXml";
+            miSaveXml.Size = new Size(163, 22);
+            miSaveXml.Text = "Сохранить XML";
+            miSaveXml.Click += miSaveXml_Click;
+            // 
+            // miLoadXml
+            // 
+            miLoadXml.Name = "miLoadXml";
+            miLoadXml.Size = new Size(163, 22);
+            miLoadXml.Text = "Загрузить XML";
+            miLoadXml.Click += miLoadXml_Click;
+            // 
+            // miDLL
+            // 
+            miDLL.Name = "miDLL";
+            miDLL.Size = new Size(96, 20);
+            miDLL.Text = "Загрузить DLL";
+            miDLL.Click += miDLL_Click;
+            // 
+            // miPlugin
+            // 
+            miPlugin.Name = "miPlugin";
+            miPlugin.Size = new Size(115, 20);
+            miPlugin.Text = "Загрузить плагин";
+            miPlugin.Click += miPlugin_Click;
             // 
             // btnUndo
             // 
@@ -185,32 +234,69 @@
             btnDelete.UseVisualStyleBackColor = true;
             btnDelete.Click += btnDelete_Click;
             // 
+            // pItems
+            // 
+            pItems.BackColor = Color.Violet;
+            pItems.Controls.Add(lbItems);
+            pItems.Controls.Add(lbProducts);
+            pItems.Location = new Point(3, 123);
+            pItems.Name = "pItems";
+            pItems.Size = new Size(350, 274);
+            pItems.TabIndex = 12;
+            // 
+            // lbItems
+            // 
+            lbItems.AutoSize = true;
+            lbItems.Font = new Font("Segoe UI Semibold", 15.75F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 204);
+            lbItems.Location = new Point(136, 18);
+            lbItems.Name = "lbItems";
+            lbItems.Size = new Size(88, 30);
+            lbItems.TabIndex = 1;
+            lbItems.Text = "Товары";
+            // 
+            // lbProducts
+            // 
+            lbProducts.FormattingEnabled = true;
+            lbProducts.ItemHeight = 15;
+            lbProducts.Location = new Point(76, 65);
+            lbProducts.Name = "lbProducts";
+            lbProducts.Size = new Size(215, 199);
+            lbProducts.TabIndex = 0;
+            lbProducts.SelectedIndexChanged += lbProducts_SelectedIndexChanged;
+            // 
             // FMarketPlace
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Control;
             ClientSize = new Size(898, 522);
+            Controls.Add(pItems);
             Controls.Add(btnDelete);
             Controls.Add(btnEdit);
             Controls.Add(btnRedo);
             Controls.Add(btnUndo);
             Controls.Add(btnCreate);
             Controls.Add(panelInfo);
-            Controls.Add(panelItems);
+            Controls.Add(panelSeparator);
             Controls.Add(LabelTitle);
             ForeColor = SystemColors.ControlText;
             FormBorderStyle = FormBorderStyle.FixedSingle;
+            MainMenuStrip = menuStrip1;
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "FMarketPlace";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "MarketPlace";
+            Load += FMarketPlace_Load;
             panelInfo.ResumeLayout(false);
             panelInfo.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)picItemImage).EndInit();
-            panelItems.ResumeLayout(false);
-            panelItems.PerformLayout();
+            panelSeparator.ResumeLayout(false);
+            panelSeparator.PerformLayout();
+            menuStrip1.ResumeLayout(false);
+            menuStrip1.PerformLayout();
+            pItems.ResumeLayout(false);
+            pItems.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -222,12 +308,21 @@
         private Panel panelInfo;
         private PictureBox picItemImage;
         private Button btnCreate;
-        private Label lbInfo;
-        private Panel panelItems;
-        private ComboBox cbObjects;
+        private Panel panelSeparator;
         private Button btnUndo;
         private Button btnRedo;
         private Button btnEdit;
         private Button btnDelete;
+        private MenuStrip menuStrip1;
+        private ToolStripMenuItem miFile;
+        private ToolStripMenuItem miDLL;
+        private ToolStripMenuItem miSaveJson;
+        private ToolStripMenuItem miLoadJson;
+        private ToolStripMenuItem miSaveXml;
+        private ToolStripMenuItem miLoadXml;
+        private ToolStripMenuItem miPlugin;
+        private Panel pItems;
+        private Label lbItems;
+        private ListBox lbProducts;
     }
 }

@@ -8,6 +8,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using OOPCore;
 
 namespace MainApp
 {
@@ -40,21 +41,20 @@ namespace MainApp
         public fCreate(object objToEdit) : this()
         {
             editTarget = objToEdit;
-            // Блокируем выбор типа, т.к. редактирование объекта
             cbTypes.Enabled = false;
-            // Определяем отображаемое имя для типа редактируемого объекта
+         
             string key = availableTypes.FirstOrDefault(kv => kv.Value == objToEdit.GetType()).Key;
             if (!string.IsNullOrEmpty(key))
             {
                 cbTypes.SelectedItem = key;
-                // Генерируем поля с предзаполнением значений
+   
                 PopulateParameterFieldsForEditing(objToEdit);
             }
         }
 
         private void InitializeTypeDictionary()
         {
-            // Получаем типы через фабрику
+    
             List<Type> types = ReflectiveFactory.GetCreatableTypes();
             foreach (Type type in types)
             {
@@ -62,6 +62,8 @@ namespace MainApp
                     availableTypes["Смартфон"] = type;
                 else if (type.Name == "Notebook")
                     availableTypes["Ноутбук"] = type;
+                else if (type.Name == "Headphones")
+                    availableTypes["Наушники"] = type;
                 else
                     availableTypes[type.Name] = type;
             }

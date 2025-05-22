@@ -1,3 +1,4 @@
+using OOPCore;
 namespace MainApp
 {
     internal static class Program

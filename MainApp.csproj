@@ -9,17 +9,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Images\laptop.jpg" />
-    <None Remove="Images\phone.jpg" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="Images\laptop.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Images\phone.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <ProjectReference Include="..\OOPCore\OOPCore.csproj" />
+    <ProjectReference Include="..\SerializationPlugin\SerializationPlugin.csproj" />
   </ItemGroup>
 
   <ItemGroup>
